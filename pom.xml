@@ -17,7 +17,14 @@
 	</properties>
 
 	<dependencies>
-		<!-- MIG Layout: layout for Swing -->
+
+        <dependency>
+            <groupId>com.sparkjava</groupId>
+            <artifactId>spark-core</artifactId>
+            <version>1.1.1</version>
+        </dependency>
+
+        <!-- MIG Layout: layout for Swing -->
 		<dependency>
 			<groupId>com.miglayout</groupId>
 			<artifactId>miglayout</artifactId>
@@ -67,7 +74,24 @@
 		    <version>1.4</version>
 		</dependency>
 
-		<!-- Integration test -->
+        <!-- Jackson -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-core</artifactId>
+            <version>2.2.2</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-annotations</artifactId>
+            <version>2.2.2</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>2.2.2</version>
+        </dependency>
+
+        <!-- Integration test -->
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>

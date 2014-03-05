@@ -6,8 +6,8 @@ import java.util.Observer;
 
 import javax.swing.JLabel;
 
+import com.nilhcem.fakesmtp.mail.saver.MailSaver;
 import com.nilhcem.fakesmtp.model.UIModel;
-import com.nilhcem.fakesmtp.server.MailSaver;
 
 /**
  * Label class to display the number of received emails.

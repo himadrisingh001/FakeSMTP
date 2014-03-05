@@ -13,14 +13,14 @@ import org.junit.Test;
 import com.nilhcem.fakesmtp.core.I18n;
 import com.nilhcem.fakesmtp.model.EmailModel;
 import com.nilhcem.fakesmtp.model.UIModel;
-import com.nilhcem.fakesmtp.server.MailSaver;
+import com.nilhcem.fakesmtp.mail.saver.FileMailSaver;
 
 public class MailServerTest {
-	private static MailSaver saver;
+	private static FileMailSaver saver;
 
 	@BeforeClass
 	public static void createMailSaver() {
-		saver = new MailSaver();
+		saver = new FileMailSaver();
 	}
 
 	@Test

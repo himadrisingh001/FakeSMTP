@@ -6,6 +6,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
+import com.nilhcem.fakesmtp.mail.saver.FileMailSaver;
 import net.miginfocom.swing.MigLayout;
 
 import com.nilhcem.fakesmtp.core.ArgsHandler;
@@ -18,7 +19,6 @@ import com.nilhcem.fakesmtp.gui.info.StartServerButton;
 import com.nilhcem.fakesmtp.gui.tab.LastMailPane;
 import com.nilhcem.fakesmtp.gui.tab.LogsPane;
 import com.nilhcem.fakesmtp.gui.tab.MailsListPane;
-import com.nilhcem.fakesmtp.server.MailSaver;
 import com.nilhcem.fakesmtp.server.SMTPServerHandler;
 
 /**
@@ -119,7 +119,7 @@ public final class MainPanel {
 		dirChooser.addObserver(saveMsgTextField);
 
 		// When a message is received
-		MailSaver mailSaver = SMTPServerHandler.INSTANCE.getMailSaver();
+		FileMailSaver mailSaver = (FileMailSaver)SMTPServerHandler.INSTANCE.getMailSaver();
 		mailSaver.addObserver(nbReceivedLabel);
 		mailSaver.addObserver(mailsListPane);
 		mailSaver.addObserver(lastMailPane);

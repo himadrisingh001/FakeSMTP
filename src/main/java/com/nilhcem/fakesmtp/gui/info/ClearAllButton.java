@@ -10,7 +10,7 @@ import javax.swing.JOptionPane;
 
 import com.nilhcem.fakesmtp.core.Configuration;
 import com.nilhcem.fakesmtp.core.I18n;
-import com.nilhcem.fakesmtp.server.MailSaver;
+import com.nilhcem.fakesmtp.mail.saver.MailSaver;
 import com.nilhcem.fakesmtp.server.SMTPServerHandler;
 
 /**

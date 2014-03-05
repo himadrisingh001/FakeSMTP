@@ -7,8 +7,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
 import com.nilhcem.fakesmtp.gui.info.ClearAllButton;
+import com.nilhcem.fakesmtp.mail.saver.MailSaver;
 import com.nilhcem.fakesmtp.model.EmailModel;
-import com.nilhcem.fakesmtp.server.MailSaver;
 
 /**
  * Scrolled text area where will be displayed the last received email.
@@ -48,7 +48,7 @@ public final class LastMailPane implements Observer {
 	 * </p>
 	 *
 	 * @param o the observable element which will notify this class.
-	 * @param data optional parameters (an {@code EmailModel} object, for the case of a {@code MailSaver} observable).
+	 * @param data optional parameters (an {@code EmailModel} object, for the case of a {@code FileMailSaver} observable).
 	 */
 	@Override
 	public synchronized void update(Observable o, Object data) {

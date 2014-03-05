@@ -1,5 +1,8 @@
 package com.nilhcem.fakesmtp.server;
 
+import com.nilhcem.fakesmtp.mail.saver.FileMailSaver;
+import com.nilhcem.fakesmtp.mail.saver.InMemoryMailSaver;
+import com.nilhcem.fakesmtp.mail.saver.MailSaver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.subethamail.smtp.helper.SimpleMessageListenerAdapter;
@@ -17,7 +20,7 @@ public enum SMTPServerHandler {
 	INSTANCE;
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(SMTPServerHandler.class);
-	private final MailSaver mailSaver = new MailSaver();
+	private final MailSaver mailSaver = new InMemoryMailSaver();
 	private final MailListener myListener = new MailListener(mailSaver);
 	private final SMTPServer smtpServer = new SMTPServer(new SimpleMessageListenerAdapter(myListener), new SMTPAuthHandlerFactory());
 
