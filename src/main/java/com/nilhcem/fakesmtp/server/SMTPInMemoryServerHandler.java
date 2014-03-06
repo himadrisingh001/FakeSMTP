@@ -1,5 +1,7 @@
 package com.nilhcem.fakesmtp.server;
 
+import com.nilhcem.fakesmtp.core.exception.BindPortException;
+import com.nilhcem.fakesmtp.core.exception.OutOfRangePortException;
 import com.nilhcem.fakesmtp.mail.saver.FileMailSaver;
 import com.nilhcem.fakesmtp.mail.saver.InMemoryMailSaver;
 import com.nilhcem.fakesmtp.mail.saver.MailSaver;
@@ -7,8 +9,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.subethamail.smtp.helper.SimpleMessageListenerAdapter;
 import org.subethamail.smtp.server.SMTPServer;
-import com.nilhcem.fakesmtp.core.exception.BindPortException;
-import com.nilhcem.fakesmtp.core.exception.OutOfRangePortException;
 
 /**
  * Starts and stops the SMTP server.
@@ -16,23 +16,24 @@ import com.nilhcem.fakesmtp.core.exception.OutOfRangePortException;
  * @author Nilhcem
  * @since 1.0
  */
-public enum SMTPServerHandler {
+public enum SMTPInMemoryServerHandler
+{
 	INSTANCE;
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(SMTPServerHandler.class);
-	private final MailSaver mailSaver = new FileMailSaver();
+	private static final Logger LOGGER = LoggerFactory.getLogger(SMTPInMemoryServerHandler.class);
+	private final MailSaver mailSaver = new InMemoryMailSaver();
 	private final MailListener myListener = new MailListener(mailSaver);
 	private final SMTPServer smtpServer = new SMTPServer(new SimpleMessageListenerAdapter(myListener), new SMTPAuthHandlerFactory());
 
-	private SMTPServerHandler() {
+	private SMTPInMemoryServerHandler() {
 	}
 
 	/**
 	 * Starts the server on the port specified in parameters.
 	 *
 	 * @param port the SMTP port to be opened.
-	 * @throws BindPortException when the port can't be opened.
-	 * @throws OutOfRangePortException when port is out of range.
+	 * @throws com.nilhcem.fakesmtp.core.exception.BindPortException when the port can't be opened.
+	 * @throws com.nilhcem.fakesmtp.core.exception.OutOfRangePortException when port is out of range.
 	 * @throws IllegalArgumentException when port is out of range.
 	 */
 	public void startServer(int port) throws BindPortException, OutOfRangePortException {

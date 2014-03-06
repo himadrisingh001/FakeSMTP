@@ -3,6 +3,7 @@ package com.nilhcem.fakesmtp;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.nilhcem.fakesmtp.mail.saver.InMemoryMailSaver;
+import com.nilhcem.fakesmtp.server.SMTPInMemoryServerHandler;
 import com.nilhcem.fakesmtp.server.SMTPServerHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,12 +13,11 @@ import spark.Route;
 
 import static spark.Spark.get;
 
-
 public class RestServer
 {
   private static Logger log = LoggerFactory.getLogger(RestServer.class);
 
-  private final SMTPServerHandler serverHandler = SMTPServerHandler.INSTANCE;
+  private final SMTPInMemoryServerHandler serverHandler = SMTPInMemoryServerHandler.INSTANCE;
   private final ObjectMapper mapper = new ObjectMapper();
 
   public void start()
