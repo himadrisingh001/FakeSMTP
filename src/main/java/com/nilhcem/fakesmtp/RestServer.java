@@ -4,7 +4,6 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.nilhcem.fakesmtp.mail.saver.InMemoryMailSaver;
 import com.nilhcem.fakesmtp.server.SMTPInMemoryServerHandler;
-import com.nilhcem.fakesmtp.server.SMTPServerHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import spark.Request;
@@ -12,6 +11,7 @@ import spark.Response;
 import spark.Route;
 
 import static spark.Spark.get;
+import static spark.Spark.setPort;
 
 public class RestServer
 {
@@ -22,6 +22,7 @@ public class RestServer
 
   public void start()
   {
+    setPort(5000);
     get(
         new Route("/start")
         {

@@ -142,7 +142,25 @@
 				</executions>
 			</plugin>
 
-			<!-- Create an executable jar with dependencies -->
+            <!-- Starts rest server at port 5000 -->
+
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>1.2</version>
+                <configuration>
+                    <executable>${java.home}/bin/java</executable>
+                    <arguments>
+                        <argument>-Xmx1g</argument>
+                        <argument>-classpath</argument>
+                        <classpath />
+                        <argument>com.nilhcem.fakesmtp.RestServer</argument>
+                    </arguments>
+                </configuration>
+
+            </plugin>
+
+            <!-- Create an executable jar with dependencies -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-assembly-plugin</artifactId>

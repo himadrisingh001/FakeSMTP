@@ -56,4 +56,16 @@ public class Mail
   {
     return date;
   }
+
+  @Override
+  public String toString()
+  {
+    return "Mail{" +
+           "date='" + date + '\'' +
+           ", from='" + from + '\'' +
+           ", to='" + to + '\'' +
+           ", subject='" + subject + '\'' +
+           ", original='" + original + '\'' +
+           '}';
+  }
 }

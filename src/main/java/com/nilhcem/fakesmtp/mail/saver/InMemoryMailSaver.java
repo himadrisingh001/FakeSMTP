@@ -46,8 +46,6 @@ public class InMemoryMailSaver implements MailSaver
 {
   private static final Logger log = LoggerFactory.getLogger(InMemoryMailSaver.class);
   private final Pattern subjectPattern = Pattern.compile("^Subject: (.*)$");
-  private final Pattern fromPattern = Pattern.compile("^From: (.*)$");
-  private final Pattern toPattern = Pattern.compile("^To: (.*)$");
   private final Pattern datePattern = Pattern.compile("^Date: (.*)$");
 
   private final List<Mail> list = new ArrayList<Mail>();
@@ -55,11 +53,14 @@ public class InMemoryMailSaver implements MailSaver
   public void saveEmailAndNotify(String from, String recipient, InputStream data)
   {
     String original = convertStreamToString(data);
-    Mail json = new Mail(
+    Mail mail = new Mail(
         extractPattern(datePattern, original), from, recipient,
         extractPattern(subjectPattern, original), original
     );
-    list.add(json);
+    list.add(mail);
+
+    log.info("Received mail: %s. %s", list.size(), mail);
+
   }
 
   private String convertStreamToString(InputStream is)
