@@ -22,7 +22,10 @@ public class RestServer
 
   public void start()
   {
-    setPort(5000);
+    int port = Integer.parseInt(System.getProperty("web.port", "5000"));
+    log.info(String.format("Starting %s at port %d", RestServer.class.getName(), port));
+    log.info("IMPORTANT: You need sudo access to use ports below 1024.");
+    setPort(port);
     get(
         new Route("/start")
         {
@@ -39,9 +42,16 @@ public class RestServer
             }
             catch (Exception e) {
               log.error("Error in parsing port: " + port + ". Falling back to default: 25");
+              response.status(406);
+              return e.getMessage();
             }
 
             try {
+              if (serverHandler.getSmtpServer().isRunning()) {
+                response.status(409); // Conflict
+                return "Already running at port : " + serverHandler.getSmtpServer().getPort();
+              }
+
               serverHandler.startServer(serverPort);
             }
             catch (Exception e) {
@@ -72,7 +82,7 @@ public class RestServer
           public Object handle(Request request, Response response)
           {
             try {
-              return mapper.writeValueAsString( ((InMemoryMailSaver)serverHandler.getMailSaver()).getMails());
+              return mapper.writeValueAsString(((InMemoryMailSaver) serverHandler.getMailSaver()).getMails());
             }
             catch (JsonProcessingException e) {
               log.error("Unable to get all mails: " + e.getMessage());
@@ -88,8 +98,48 @@ public class RestServer
           @Override
           public Object handle(Request request, Response response)
           {
+            log.info("Removing all mails.");
             serverHandler.getMailSaver().deleteEmails();
             return true;
+          }
+        }
+    );
+
+    get(
+        new Route("/kill")
+        {
+          @Override
+          public Object handle(Request request, Response response)
+          {
+            new Thread(
+                new Runnable()
+                {
+                  @Override
+                  public void run()
+                  {
+                    try {
+                      Thread.sleep(1000);
+                    }
+                    catch (InterruptedException e) {
+                      e.printStackTrace();
+                    }
+                    log.info("Got kill signal. Bye Bye!");
+                    System.exit(0);
+                  }
+                }
+            ).start();
+            return true;
+          }
+        }
+    );
+
+    get(
+        new Route("/status")
+        {
+          @Override
+          public Object handle(Request request, Response response)
+          {
+            return serverHandler.getSmtpServer().isRunning();
           }
         }
     );

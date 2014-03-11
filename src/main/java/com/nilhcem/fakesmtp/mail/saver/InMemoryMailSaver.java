@@ -59,7 +59,7 @@ public class InMemoryMailSaver implements MailSaver
     );
     list.add(mail);
 
-    log.info("Received mail: %s. %s", list.size(), mail);
+    log.info("You've got mail! [%s mails]. %s", list.size(), mail);
 
   }
 
