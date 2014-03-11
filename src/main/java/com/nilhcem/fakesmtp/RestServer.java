@@ -25,6 +25,7 @@ public class RestServer
     int port = Integer.parseInt(System.getProperty("web.port", "5000"));
     log.info(String.format("Starting %s at port %d", RestServer.class.getName(), port));
     log.info("IMPORTANT: You need sudo access to use ports below 1024.");
+
     setPort(port);
     get(
         new Route("/start")
@@ -49,7 +50,9 @@ public class RestServer
             try {
               if (serverHandler.getSmtpServer().isRunning()) {
                 response.status(409); // Conflict
-                return "Already running at port : " + serverHandler.getSmtpServer().getPort();
+                String resp = "Already running at port : " + serverHandler.getSmtpServer().getPort();
+                log.info(resp);
+                return resp;
               }
 
               serverHandler.startServer(serverPort);
@@ -81,12 +84,13 @@ public class RestServer
           @Override
           public Object handle(Request request, Response response)
           {
+            response.type("application/json");
             try {
               return mapper.writeValueAsString(((InMemoryMailSaver) serverHandler.getMailSaver()).getMails());
             }
             catch (JsonProcessingException e) {
               log.error("Unable to get all mails: " + e.getMessage());
-              return "{}";
+              return "[]";
             }
           }
         }

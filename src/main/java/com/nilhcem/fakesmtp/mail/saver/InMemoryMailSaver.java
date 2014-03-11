@@ -59,8 +59,7 @@ public class InMemoryMailSaver implements MailSaver
     );
     list.add(mail);
 
-    log.info("You've got mail! [%s mails]. %s", list.size(), mail);
-
+    log.info(String.format("You've got %s mails! . %s", list.size(), mail));
   }
 
   private String convertStreamToString(InputStream is)
