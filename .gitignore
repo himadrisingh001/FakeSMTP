@@ -20,3 +20,5 @@ received-emails/*
 emails-recus/*
 
 *.pid
+
+*.log

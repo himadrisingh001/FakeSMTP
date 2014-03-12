@@ -6,7 +6,15 @@
 		</encoder>
 	</appender>
 
-	<!-- Custom appender, for sending the SMTP logs in the swing application directly -->
+
+    <appender name="FILE" class="ch.qos.logback.core.FileAppender">
+        <file>logs/restServer.log</file>
+        <encoder>
+            <pattern>%d{dd MMM yyyy HH:mm:ss} %-5p %c - %m%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- Custom appender, for sending the SMTP logs in the swing application directly -->
 	<!-- If you modify this part, please change also the "logback.appender.name" key in the configuration.properties file -->
 	<appender name="SMTPLOGS" class="com.nilhcem.fakesmtp.log.SMTPLogsAppender" />
 	<logger name="org.subethamail.smtp.server.Session" level="DEBUG">
@@ -18,5 +26,6 @@
 
 	<root level="INFO">
 		<appender-ref ref="STDOUT" />
+        <appender-ref ref="FILE" />
 	</root>
 </configuration>
